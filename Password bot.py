@@ -1,21 +1,23 @@
 import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, ContextTypes, CommandHandler, CallbackQueryHandler
+from Password_gen import pass_gen
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
+first_stage, second_stage = 0, 1
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     keyboard = [
         [
-            InlineKeyboardButton("1-ая кнопка", callback_data="1"),
-            InlineKeyboardButton("2-ая кнопка", callback_data="2")
+            InlineKeyboardButton("1-ая кнопка", callback_data=pass_gen(10))
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("Выбирай бля", reply_markup=reply_markup)
+    await update.message.reply_text("Я бот для создания паролей", reply_markup=reply_markup)
+    return first_stage
 
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
