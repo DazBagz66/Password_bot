@@ -26,13 +26,12 @@ def pass_gen(length, is_num, is_spec):
             str += rn.choice(chars_0)
             str = ''.join(rn.sample(str,len(str)))
     elif ((is_num == False) and (is_spec == True)):  # Спец знаки
-        chars_1 = alphabet_word + alphabet_spec
-        for i in range(length):
-            str += chars_1[rn.randint(0,len(chars_1)-1)]
-        while bool(re.search(alphabet_spec, str)) == False:
-            str = ""
-            for i in range(length):
-                str += chars_1[rn.randint(0, len(chars_1) - 1)]
+        chars_0 = alphabet_word + alphabet_spec
+        str = ""
+        str += rn.choice(alphabet_num)
+        for i in range(length - 1):
+            str += rn.choice(chars_0)
+            str = ''.join(rn.sample(str, len(str)))
     else:
         str = ""
         for i in range(length):
